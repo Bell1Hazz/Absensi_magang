@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\IzinController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\DashboardController;
 
 // Authentication Routes
 Auth::routes();
@@ -45,4 +46,33 @@ Route::middleware(['auth'])->group(function () {
 // Debug route untuk test
 Route::get('/test-dashboard', function () {
     return 'Dashboard route is working! User: ' . (auth()->check() ? auth()->user()->name : 'Not authenticated');
+})->middleware('auth');
+// Tambahkan di group middleware auth
+Route::middleware(['auth'])->group(function () {
+    // ... existing routes ...
+    
+    // Profil routes untuk magang only
+    Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');
+    Route::post('/profil/upload-photo', [ProfilController::class, 'uploadPhoto'])->name('profil.upload-photo');
+    Route::delete('/profil/delete-photo', [ProfilController::class, 'deletePhoto'])->name('profil.delete-photo');
+});
+// Debug route untuk cek foto profil
+Route::get('/debug-photo-user', function() {
+    $user = auth()->user();
+    
+    if (!$user) {
+        return 'Not authenticated';
+    }
+    
+    return [
+        'user_id' => $user->id,
+        'user_name' => $user->name,
+        'profile_photo_field' => $user->profile_photo,
+        'has_profile_photo' => $user->hasProfilePhoto(),
+        'profile_photo_url' => $user->profile_photo_url,
+        'storage_exists' => $user->profile_photo ? Storage::disk('public')->exists($user->profile_photo) : false,
+        'public_file_exists' => $user->profile_photo ? file_exists(public_path('storage/' . $user->profile_photo)) : false,
+        'storage_link_exists' => is_link(public_path('storage')),
+        'storage_link_target' => is_link(public_path('storage')) ? readlink(public_path('storage')) : 'No link'
+    ];
 })->middleware('auth');

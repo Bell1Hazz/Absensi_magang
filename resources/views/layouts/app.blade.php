@@ -16,6 +16,304 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <style>
+        /* Top Header Layout Fix */
+.top-header {
+    background: #fff;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.header-left {
+    flex: 1;
+}
+
+.header-right {
+    flex: 0 0 auto;
+}
+
+/* Dashboard Title - Rata Kiri */
+.dashboard-title {
+    display: flex;
+    align-items: center;
+    color: #525f7f;
+    font-weight: 400;
+    font-size: 1.75rem;
+    margin: 0;
+    text-align: left;
+}
+
+.dashboard-icon {
+    background: #4285f4;
+    color: #fff;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+/* Profile Menu - Fixed Position */
+.profile-menu {
+    position: relative;
+    z-index: 1000;
+}
+
+.profile-dropdown-btn {
+    background: #f8f9fe;
+    border: 1px solid #e9ecef;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    transition: all 0.15s ease;
+    text-decoration: none;
+    color: #525f7f;
+    cursor: pointer;
+    min-width: 200px;
+}
+
+.profile-dropdown-btn:hover {
+    background: #e9ecef;
+    color: #525f7f;
+    text-decoration: none;
+    border-color: #d1ecf1;
+}
+
+.profile-photo-wrapper {
+    position: relative;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+}
+
+.profile-photo-small {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.profile-photo-fallback {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #5e72e4;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.75rem;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* User Info di Profile Menu */
+.profile-info {
+    text-align: left;
+    flex: 1;
+    min-width: 0;
+}
+
+.profile-name {
+    font-weight: 600;
+    color: #32325d;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profile-role {
+    color: #8898aa;
+    font-size: 0.75rem;
+    margin-bottom: 0;
+    line-height: 1;
+}
+
+/* Dropdown Menu Style */
+.profile-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    min-width: 220px;
+    z-index: 1050;
+    display: none;
+    border: 1px solid #e9ecef;
+    margin-top: 0.75rem;
+    overflow: hidden;
+}
+
+.profile-dropdown.show {
+    display: block;
+    animation: fadeInDown 0.3s ease;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -9px;
+    right: 25px;
+    width: 0;
+    height: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 9px solid #fff;
+    filter: drop-shadow(0 -2px 3px rgba(0,0,0,0.1));
+}
+
+.profile-dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 0.875rem 1.25rem;
+    color: #525f7f;
+    text-decoration: none;
+    font-size: 0.875rem;
+    border-bottom: 1px solid #f8f9fe;
+    transition: all 0.15s ease;
+}
+
+.profile-dropdown-item:hover {
+    background: #f8f9fe;
+    color: #5e72e4;
+    text-decoration: none;
+}
+
+.profile-dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.profile-dropdown-item.logout {
+    color: #f5365c;
+    border-top: 1px solid #f8f9fe;
+}
+
+.profile-dropdown-item.logout:hover {
+    background: #fdf2f2;
+    color: #ec0c38;
+}
+
+.profile-dropdown-item i {
+    margin-right: 0.75rem;
+    width: 1rem;
+    text-align: center;
+}
+
+/* Dropdown Divider */
+.dropdown-divider {
+    height: 0;
+    margin: 0;
+    overflow: hidden;
+    border-top: 1px solid #e9ecef;
+}
+
+/* Content Area Spacing */
+.content-area {
+    padding: 2rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .top-header {
+        padding: 1rem;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    .dashboard-title {
+        font-size: 1.5rem;
+    }
+    
+    .dashboard-icon {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.875rem;
+    }
+    
+    .profile-info {
+        display: none;
+    }
+    
+    .profile-dropdown-btn {
+        min-width: auto;
+        padding: 0.5rem;
+        border-radius: 50%;
+    }
+    
+    .profile-dropdown {
+        min-width: 180px;
+        right: -20px;
+    }
+}
+
+/* Fix untuk layout yang centered - buat rata kiri */
+.content-area .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.content-area .col-12,
+.content-area .col-lg-8,
+.content-area .col-md-6 {
+    padding-left: 0;
+    padding-right: 15px;
+}
+
+/* Dashboard Content Layout */
+.dashboard-content {
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* Card positioning */
+.card-dashboard {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Section headers alignment */
+.section-header {
+    text-align: left;
+    justify-content: flex-start;
+}
+
+/* Action grid alignment */
+.action-grid {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Info grid alignment */
+.info-grid {
+    width: 100%;
+}
         body {
             background: #f7f9fc;
             font-family: 'Open Sans', sans-serif;
@@ -106,19 +404,16 @@
             margin-left: 250px;
             min-height: 100vh;
             background: #f7f9fc;
-            padding: 2rem;
         }
 
-        /* Dashboard Content sesuai screenshot */
-        .dashboard-header {
-            display: flex;
-            justify-content: between;
-            align-items: center;
-            margin-bottom: 2rem;
+        /* Top Header dengan Profil Menu */
+        .top-header {
             background: #fff;
-            padding: 1.5rem 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            padding: 1rem 2rem;
+            box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .dashboard-title {
@@ -143,20 +438,164 @@
             font-size: 1rem;
         }
 
-        .user-info-header {
-            text-align: right;
-            margin-left: auto;
-        }
+        /* Profile Menu di Pojok Kanan Atas */
+       /* Profile Photo Wrapper */
+.profile-photo-wrapper {
+    position: relative;
+    margin-right: 0.75rem;
+}
 
-        .user-name {
-            font-weight: 600;
-            color: #32325d;
-            font-size: 1rem;
-        }
+.profile-photo-small {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e9ecef;
+    display: block;
+}
 
-        .user-role {
-            color: #8898aa;
-            font-size: 0.875rem;
+.profile-photo-fallback {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #5e72e4;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+    border: 2px solid #e9ecef;
+}
+
+/* Dropdown Divider */
+.dropdown-divider {
+    height: 0;
+    margin: 0.5rem 0;
+    overflow: hidden;
+    border-top: 1px solid #e9ecef;
+}
+
+/* Profile Menu di pojok kanan atas */
+.profile-menu {
+    position: relative;
+    z-index: 1000;
+}
+
+.profile-dropdown-btn {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 50px;
+    transition: all 0.15s ease;
+    text-decoration: none;
+    color: #525f7f;
+    cursor: pointer;
+}
+
+.profile-dropdown-btn:hover {
+    background: #f8f9fe;
+    color: #525f7f;
+    text-decoration: none;
+}
+
+.profile-info {
+    text-align: right;
+    margin-right: 0.75rem;
+}
+
+.profile-name {
+    font-weight: 600;
+    color: #32325d;
+    font-size: 0.875rem;
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+
+.profile-role {
+    color: #8898aa;
+    font-size: 0.75rem;
+    margin-bottom: 0;
+}
+
+/* Dropdown Menu Style */
+.profile-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    min-width: 200px;
+    z-index: 1050;
+    display: none;
+    border: 1px solid #e9ecef;
+    margin-top: 0.5rem;
+}
+
+.profile-dropdown.show {
+    display: block;
+    animation: fadeInDown 0.2s ease;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: 20px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #fff;
+}
+
+.profile-dropdown-item {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: #525f7f;
+    text-decoration: none;
+    font-size: 0.875rem;
+    border-bottom: 1px solid #f8f9fe;
+    transition: all 0.15s ease;
+}
+
+.profile-dropdown-item:hover {
+    background: #f8f9fe;
+    color: #5e72e4;
+    text-decoration: none;
+}
+
+.profile-dropdown-item:last-child {
+    border-bottom: none;
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.profile-dropdown-item.logout {
+    color: #f5365c;
+}
+
+.profile-dropdown-item.logout:hover {
+    background: #fdf2f2;
+    color: #ec0c38;
+}
+
+        /* Content Area */
+        .content-area {
+            padding: 2rem;
         }
 
         /* Card Style sesuai screenshot */
@@ -173,7 +612,7 @@
             padding: 2rem;
         }
 
-        /* Section Header dengan icon sesuai screenshot */
+        /* Section Header */
         .section-header {
             display: flex;
             align-items: center;
@@ -203,7 +642,7 @@
             font-size: 0.75rem;
         }
 
-        /* Action Buttons sesuai screenshot */
+        /* Action Buttons */
         .action-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -239,7 +678,6 @@
             font-size: 1.125rem;
         }
 
-        /* Button Colors sesuai screenshot */
         .btn-absensi {
             background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
         }
@@ -248,7 +686,7 @@
             background: linear-gradient(135deg, #06b6d4 0%, #67e8f9 100%);
         }
 
-        /* Info Grid sesuai screenshot */
+        /* Info Grid */
         .info-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -317,7 +755,7 @@
             color: #fff;
         }
 
-        /* Alert Status sesuai screenshot */
+        /* Alert Status */
         .alert-status {
             background: #f8fafc;
             border: 1px solid #e2e8f0;
@@ -357,6 +795,12 @@
             .info-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
+            }
+            .top-header {
+                padding: 1rem;
+            }
+            .profile-info {
+                display: none;
             }
         }
     </style>
@@ -442,23 +886,72 @@
     <!-- Main content dengan sidebar -->
     <div class="main-content">
         @auth
-        <!-- Dashboard Header sesuai screenshot -->
-        <div class="dashboard-header">
-            <h1 class="dashboard-title">
-                <div class="dashboard-icon">
-                    <i class="fas fa-tachometer-alt"></i>
+<!-- Top Header dengan Profile Menu di Pojok Kanan -->
+<div class="top-header">
+    <!-- Dashboard Title - Rata Kiri -->
+    <div class="header-left">
+        <h1 class="dashboard-title">
+            <div class="dashboard-icon">
+                <i class="fas fa-tachometer-alt"></i>
+            </div>
+            Dashboard
+        </h1>
+    </div>
+    
+    <!-- Profile Menu - Pojok Kanan -->
+    <div class="header-right">
+        <div class="profile-menu">
+            <a href="#" class="profile-dropdown-btn" onclick="toggleProfileDropdown(event)">
+                <!-- Foto Profil -->
+                <div class="profile-photo-wrapper">
+                    @if(auth()->user()->hasProfilePhoto())
+                        <img src="{{ auth()->user()->profile_photo_url }}" 
+                             alt="Foto Profil {{ auth()->user()->name }}"
+                             class="profile-photo-small"
+                             onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="profile-photo-fallback" style="display: none;">
+                            {{ auth()->user()->initials }}
+                        </div>
+                    @else
+                        <div class="profile-photo-fallback">
+                            {{ auth()->user()->initials }}
+                        </div>
+                    @endif
                 </div>
-                Dashboard
-            </h1>
-            <div class="user-info-header">
-                <div class="user-name">{{ auth()->user()->name }}</div>
-                <div class="user-role">{{ auth()->user()->isMentor() ? 'Mentor' : 'Magang' }}</div>
+                
+                <!-- User Info -->
+                <div class="profile-info">
+                    <div class="profile-name">{{ auth()->user()->name }}</div>
+                    <div class="profile-role">{{ auth()->user()->isMentor() ? 'Mentor' : 'Magang' }}</div>
+                </div>
+                
+                <!-- Dropdown Arrow -->
+                <i class="fas fa-chevron-down ml-2" style="font-size: 0.75rem; color: #8898aa;"></i>
+            </a>
+            
+            <!-- Dropdown Menu -->
+            <div class="profile-dropdown" id="profile-dropdown">
+                @if(auth()->user()->isMagang())
+                <a href="{{ route('profil.index') }}" class="profile-dropdown-item">
+                    <i class="fas fa-user-circle mr-2"></i>Profil Saya
+                </a>
+                {{-- <a href="{{ route('profil.index') }}" class="profile-dropdown-item">
+                    <i class="fas fa-camera mr-2"></i>Ubah Foto
+                </a> --}}
+                <div class="dropdown-divider"></div>
+                @endif
+                <a href="#" class="profile-dropdown-item logout" onclick="event.preventDefault(); confirmLogout();">
+                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                </a>
             </div>
         </div>
+    </div>
+</div>
         @endauth
         
         <!-- Page content -->
-        <div class="container-fluid p-0">
+        <div class="content-area">
             @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show">
                     <i class="fas fa-check-circle mr-2"></i>
@@ -490,17 +983,83 @@
         // Logout functionality
         document.getElementById('logout-link').addEventListener('click', function(e) {
             e.preventDefault();
+            confirmLogout();
+        });
+        
+        // Profile dropdown toggle
+        function toggleProfileDropdown(event) {
+            event.preventDefault();
+            event.stopPropagation();
             
-            if (confirm('Yakin ingin logout?')) {
-                document.getElementById('logout-form').submit();
+            const dropdown = document.getElementById('profile-dropdown');
+            dropdown.classList.toggle('show');
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('profile-dropdown');
+            const profileMenu = document.querySelector('.profile-menu');
+            
+            if (!profileMenu.contains(event.target)) {
+                dropdown.classList.remove('show');
             }
         });
         
-        // Mobile sidebar toggle
-        function toggleSidebar() {
-            document.querySelector('.navbar-vertical').classList.toggle('show');
+        // Logout confirmation
+        function confirmLogout() {
+            if (confirm('Yakin ingin logout?')) {
+                document.getElementById('logout-form').submit();
+            }
         }
     </script>
+    <script>
+    // Auto hide alerts
+    $('.alert').delay(5000).fadeOut();
+    
+    // Logout functionality
+    document.getElementById('logout-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        confirmLogout();
+    });
+    
+    // Profile dropdown toggle
+    function toggleProfileDropdown(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        
+        const dropdown = document.getElementById('profile-dropdown');
+        dropdown.classList.toggle('show');
+    }
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        const dropdown = document.getElementById('profile-dropdown');
+        const profileMenu = document.querySelector('.profile-menu');
+        
+        if (!profileMenu.contains(event.target)) {
+            dropdown.classList.remove('show');
+        }
+    });
+    
+    // Logout confirmation
+    function confirmLogout() {
+        if (confirm('Yakin ingin logout?')) {
+            document.getElementById('logout-form').submit();
+        }
+    }
+    
+    // Fix image loading errors
+    function fixImageError(img) {
+        console.log('Image failed to load:', img.src);
+        img.style.display = 'none';
+        
+        // Show fallback
+        const fallback = img.nextElementSibling;
+        if (fallback && fallback.classList.contains('profile-photo-fallback')) {
+            fallback.style.display = 'flex';
+        }
+    }
+</script>
     
     @yield('scripts')
 </body>

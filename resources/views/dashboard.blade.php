@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="dashboard-content">
 
 @if(auth()->user()->isMentor())
     <!-- Dashboard Mentor -->
-    <div class="row mb-4">
+    <div class="row">
         <div class="col-xl-4 col-md-6 mb-4">
             <div class="card-dashboard">
                 <div class="card-body text-center">
@@ -61,99 +62,112 @@
     </div>
 
 @else
-    <!-- Dashboard Magang - PERSIS SEPERTI SCREENSHOT -->
+    <!-- Dashboard Magang - Layout yang Rapi -->
     
     <!-- Status Absensi Hari Ini -->
-    <div class="card-dashboard">
-        <div class="card-body">
-            <div class="section-header status">
-                <div class="section-icon">
-                    <i class="fas fa-info"></i>
-                </div>
-                Status Absensi Hari Ini
-            </div>
-            
-            @if($absensiHariIni ?? false)
-                <div class="alert-status">
-                    <h6><i class="fas fa-check-circle mr-2"></i>Anda Sudah Melakukan Absensi</h6>
-                    <div class="status-content">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <strong>Jam Masuk:</strong> {{ $absensiHariIni->jam_masuk ?? '-' }}<br>
-                                <small class="text-muted">📍 {{ $absensiHariIni->lokasi_masuk ?? '-' }}</small>
-                            </div>
-                            <div class="col-md-6">
-                                <strong>Jam Pulang:</strong> 
-                                @if($absensiHariIni->jam_pulang ?? false)
-                                    {{ $absensiHariIni->jam_pulang }}<br>
-                                    <small class="text-muted">📍 {{ $absensiHariIni->lokasi_pulang ?? '-' }}</small>
-                                @else
-                                    <span class="text-warning">Belum Pulang</span>
-                                @endif
+    <div class="row">
+        <div class="col-12">
+            <div class="card-dashboard">
+                <div class="card-body">
+                    <div class="section-header status">
+                        <div class="section-icon">
+                            <i class="fas fa-info"></i>
+                        </div>
+                        Status Absensi Hari Ini
+                    </div>
+                    
+                    @if($absensiHariIni ?? false)
+                        <div class="alert-status">
+                            <h6><i class="fas fa-check-circle mr-2"></i>Anda Sudah Melakukan Absensi</h6>
+                            <div class="status-content">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <strong>Jam Masuk:</strong> {{ $absensiHariIni->jam_masuk ?? '-' }}<br>
+                                        <small class="text-muted">📍 {{ $absensiHariIni->lokasi_masuk ?? '-' }}</small>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Jam Pulang:</strong> 
+                                        @if($absensiHariIni->jam_pulang ?? false)
+                                            {{ $absensiHariIni->jam_pulang }}<br>
+                                            <small class="text-muted">📍 {{ $absensiHariIni->lokasi_pulang ?? '-' }}</small>
+                                        @else
+                                            <span class="text-warning">Belum Pulang</span>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @else
+                        <div class="alert-status">
+                            <h6><i class="fas fa-exclamation-triangle mr-2"></i>Belum Melakukan Absensi</h6>
+                            <div class="status-content">
+                                Silakan lakukan absensi masuk terlebih dahulu.
+                            </div>
+                        </div>
+                    @endif
                 </div>
-            @else
-                <div class="alert-status">
-                    <h6><i class="fas fa-exclamation-triangle mr-2"></i>Belum Melakukan Absensi</h6>
-                    <div class="status-content">
-                        Silakan lakukan absensi masuk terlebih dahulu.
-                    </div>
-                </div>
-            @endif
+            </div>
         </div>
     </div>
 
-    <!-- Action Buttons - PERSIS SEPERTI SCREENSHOT -->
-    <div class="action-grid">
-        <a href="{{ route('absensi.form') }}" class="btn-action btn-absensi">
-            <i class="fas fa-clock"></i>
-            Absensi
-        </a>
-        <a href="{{ route('izin.index') }}" class="btn-action btn-izin">
-            <i class="fas fa-calendar-alt"></i>
-            Izin Saya
-        </a>
+    <!-- Action Buttons - Layout Rapi -->
+    <div class="row">
+        <div class="col-12">
+            <div class="action-grid">
+                <a href="{{ route('absensi.form') }}" class="btn-action btn-absensi">
+                    <i class="fas fa-clock"></i>
+                    Absensi
+                </a>
+                <a href="{{ route('izin.index') }}" class="btn-action btn-izin">
+                    <i class="fas fa-calendar-alt"></i>
+                    Izin Saya
+                </a>
+            </div>
+        </div>
     </div>
 
-    <!-- Informasi Akun - PERSIS SEPERTI SCREENSHOT -->
-    <div class="card-dashboard">
-        <div class="card-body">
-            <div class="section-header info">
-                <div class="section-icon">
-                    <i class="fas fa-info"></i>
-                </div>
-                Informasi Akun
-            </div>
-            
-            <div class="info-grid">
-                <div class="info-item">
-                    <div class="info-icon shift">
-                        <i class="fas fa-user-tag"></i>
+    <!-- Informasi Akun - Layout Rapi -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card-dashboard">
+                <div class="card-body">
+                    <div class="section-header info">
+                        <div class="section-icon">
+                            <i class="fas fa-info"></i>
+                        </div>
+                        Informasi Akun
                     </div>
-                    <div class="info-label">Shift</div>
-                    <span class="info-value badge-shift">{{ ucfirst(auth()->user()->shift) }}</span>
-                </div>
-                <div class="info-item">
-                    <div class="info-icon location">
-                        <i class="fas fa-map-marker-alt"></i>
+                    
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-icon shift">
+                                <i class="fas fa-user-tag"></i>
+                            </div>
+                            <div class="info-label">Shift</div>
+                            <span class="info-value badge-shift">{{ ucfirst(auth()->user()->shift) }}</span>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon location">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info-label">Lokasi</div>
+                            <span class="info-value badge-location">{{ auth()->user()->lokasi }}</span>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon time">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="info-label">Waktu Sekarang</div>
+                            <span class="info-value badge-time" id="current-time">{{ date('H:i:s') }}</span>
+                        </div>
                     </div>
-                    <div class="info-label">Lokasi</div>
-                    <span class="info-value badge-location">{{ auth()->user()->lokasi }}</span>
-                </div>
-                <div class="info-item">
-                    <div class="info-icon time">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="info-label">Waktu Sekarang</div>
-                    <span class="info-value badge-time" id="current-time">{{ date('H:i:s') }}</span>
                 </div>
             </div>
         </div>
     </div>
 @endif
 
+</div>
 @endsection
 
 @section('scripts')
