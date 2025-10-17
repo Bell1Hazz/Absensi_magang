@@ -18,10 +18,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Protected routes
 Route::middleware(['auth'])->group(function () {
-    
-    // Dashboard - PASTIKAN INI ADA
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
     // Absensi routes
@@ -30,6 +27,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/absensi/pulang', [AbsensiController::class, 'pulang'])->name('absensi.pulang');
     Route::post('/absensi/update-shift', [AbsensiController::class, 'updateShift'])->name('absensi.update-shift');
     Route::get('/riwayat-absensi', [AbsensiController::class, 'riwayat'])->name('absensi.riwayat');
+    Route::get('/absensi/export', [AbsensiController::class, 'export'])->name('absensi.export');
+    Route::post('/absensi/generate-fake', [AbsensiController::class, 'generateFakeData'])->name('absensi.generate-fake');
     
     // Izin routes
     Route::get('/izin', [IzinController::class, 'index'])->name('izin.index');
@@ -41,38 +40,11 @@ Route::middleware(['auth'])->group(function () {
     
     // User management
     Route::resource('users', UserController::class);
-});
-
-// Debug route untuk test
-Route::get('/test-dashboard', function () {
-    return 'Dashboard route is working! User: ' . (auth()->check() ? auth()->user()->name : 'Not authenticated');
-})->middleware('auth');
-// Tambahkan di group middleware auth
-Route::middleware(['auth'])->group(function () {
-    // ... existing routes ...
+    Route::get('/users-export', [UserController::class, 'export'])->name('users.export');
+    Route::post('/users-generate-fake', [UserController::class, 'generateFakeData'])->name('users.generate-fake');
     
-    // Profil routes untuk magang only
+    // Profil routes
     Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');
     Route::post('/profil/upload-photo', [ProfilController::class, 'uploadPhoto'])->name('profil.upload-photo');
     Route::delete('/profil/delete-photo', [ProfilController::class, 'deletePhoto'])->name('profil.delete-photo');
 });
-// Debug route untuk cek foto profil
-Route::get('/debug-photo-user', function() {
-    $user = auth()->user();
-    
-    if (!$user) {
-        return 'Not authenticated';
-    }
-    
-    return [
-        'user_id' => $user->id,
-        'user_name' => $user->name,
-        'profile_photo_field' => $user->profile_photo,
-        'has_profile_photo' => $user->hasProfilePhoto(),
-        'profile_photo_url' => $user->profile_photo_url,
-        'storage_exists' => $user->profile_photo ? Storage::disk('public')->exists($user->profile_photo) : false,
-        'public_file_exists' => $user->profile_photo ? file_exists(public_path('storage/' . $user->profile_photo)) : false,
-        'storage_link_exists' => is_link(public_path('storage')),
-        'storage_link_target' => is_link(public_path('storage')) ? readlink(public_path('storage')) : 'No link'
-    ];
-})->middleware('auth');
