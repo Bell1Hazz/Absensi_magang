@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\IzinController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\DashboardController;
 
 // Authentication Routes
 Auth::routes();
@@ -17,10 +18,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Protected routes
 Route::middleware(['auth'])->group(function () {
-    
-    // Dashboard - PASTIKAN INI ADA
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
     // Absensi routes
@@ -29,6 +27,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/absensi/pulang', [AbsensiController::class, 'pulang'])->name('absensi.pulang');
     Route::post('/absensi/update-shift', [AbsensiController::class, 'updateShift'])->name('absensi.update-shift');
     Route::get('/riwayat-absensi', [AbsensiController::class, 'riwayat'])->name('absensi.riwayat');
+    Route::get('/absensi/export', [AbsensiController::class, 'export'])->name('absensi.export');
+    Route::post('/absensi/generate-fake', [AbsensiController::class, 'generateFakeData'])->name('absensi.generate-fake');
     
     // Izin routes
     Route::get('/izin', [IzinController::class, 'index'])->name('izin.index');
@@ -40,9 +40,11 @@ Route::middleware(['auth'])->group(function () {
     
     // User management
     Route::resource('users', UserController::class);
+    Route::get('/users-export', [UserController::class, 'export'])->name('users.export');
+    Route::post('/users-generate-fake', [UserController::class, 'generateFakeData'])->name('users.generate-fake');
+    
+    // Profil routes
+    Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');
+    Route::post('/profil/upload-photo', [ProfilController::class, 'uploadPhoto'])->name('profil.upload-photo');
+    Route::delete('/profil/delete-photo', [ProfilController::class, 'deletePhoto'])->name('profil.delete-photo');
 });
-
-// Debug route untuk test
-Route::get('/test-dashboard', function () {
-    return 'Dashboard route is working! User: ' . (auth()->check() ? auth()->user()->name : 'Not authenticated');
-})->middleware('auth');

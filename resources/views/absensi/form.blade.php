@@ -247,7 +247,7 @@ $(document).ready(function() {
                         statusStyle = 'background-color: #2dce89; color: white; font-weight: 500; border-radius: 8px; padding: 1rem;';
                     } else {
                         locationText = 'DILUAR KANTOR';
-                        statusStyle = 'background-color: #f5365c; color: white; font-weight: 500; border-radius: 8px; padding: 1rem;';
+                        statusStyle = 'background-color: #FF204E; color: white; font-weight: 500; border-radius: 8px; padding: 1rem;';
                     }
                     
                     console.log('✅ Final Result:', locationText, '(' + Math.round(distance) + 'm)');
