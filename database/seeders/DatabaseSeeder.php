@@ -11,8 +11,8 @@ class DatabaseSeeder extends Seeder
     {
         // Mentor
         User::create([
-            'name' => 'Admin Mentor',
-            'email' => 'mentor@example.com',
+            'name' => 'Admin 2',
+            'email' => 'mentor2@example.com',
             'password' => 'password',
             'role' => 'mentor',
             'shift' => 'pagi',
@@ -20,22 +20,15 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Magang
+        
         User::create([
-            'name' => 'Abel Hazza Fredella',
-            'email' => 'abel@example.com',
-            'password' => 'password',
-            'role' => 'magang',
-            'shift' => 'pagi',
-            'lokasi' => 'KANTOR',
-        ]);
-
-        User::create([
-            'name' => 'Budi Santoso',
-            'email' => 'budi@example.com',
+            'name' => 'Benny Putra',
+            'email' => 'Benny@example.com',
             'password' => 'password',
             'role' => 'magang',
             'shift' => 'sore',
             'lokasi' => 'KANTOR',
         ]);
     }
+    
 }
