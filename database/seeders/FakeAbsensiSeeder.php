@@ -18,7 +18,7 @@ class FakeAbsensiSeeder extends Seeder
         $magangUsers = User::where('role', 'magang')->get();
         
         // Generate absensi untuk 30 hari terakhir
-        $startDate = Carbon::now()->subDays(30);
+        $startDate = Carbon::now()->subDays(60);
         $endDate = Carbon::now();
         
         foreach ($magangUsers as $user) {

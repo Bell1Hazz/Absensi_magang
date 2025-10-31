@@ -38,7 +38,7 @@
                 <div class="form-group mb-4">
                     <h5 class="text-dark mb-0" style="font-weight: 300;">
                         <strong>Nama:</strong> {{ auth()->user()->name }}
-                    </h5>
+                    </h5>   
                 </div>
                 
                 <!-- Shift & Location Row -->
